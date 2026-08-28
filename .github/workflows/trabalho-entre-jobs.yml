@@ -13,7 +13,7 @@ jobs:
               run: cat /etc/os-release
 
             - name: Exibir uma mensagem
-              run: echo "Estou fazendo o curso de Github Actions da Linuxtips" > mensagem.txt
+              run: echo "Estou fazendo o curso de Github Actions da Linuxtips" > ${{ github.workspace }}/mensagem.txt
             
             - name: Qualquer outra coisa
               run: ls -lha
@@ -23,19 +23,20 @@ jobs:
             
             - uses: actions/upload-artifact@v4
               with:
-                name: strigus
-                path: mensagem.txt
+                name: strigus-upload
+                path: ${{ github.workspace }}/mensagem.txt
 
     job_2:
       runs-on: ubuntu-latest
+      needs: job_1
       steps:
         - name: Ver o conteudo do diretorio
           run: ls -lha
 
         - uses: actions/download-artifact@v4
           with:
-            name: strigus
-            path: mensagem.txt
+            name: strigus-upload
+            path: strigus
 
         - name: Move o arquivo
           run: mv strigus/mensagem.txt . && rm -rf ./strigus
