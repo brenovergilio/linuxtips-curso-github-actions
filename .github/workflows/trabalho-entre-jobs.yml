@@ -20,12 +20,25 @@ jobs:
             
             - name: Le conteudo do arquivo
               run: cat mensagem.txt
+            
+            - uses: actions/upload-artifact@v4
+              with:
+                name: strigus
+                path: mensagem.txt
 
     job_2:
       runs-on: ubuntu-latest
       steps:
-        - name: Qualquer outra coisa
+        - name: Ver o conteudo do diretorio
           run: ls -lha
+
+        - uses: actions/download-artifact@v4
+          with:
+            name: strigus
+            path: mensagem.txt
+
+        - name: Move o arquivo
+          run: mv strigus/mensagem.txt . && rm -rf ./strigus
 
         - name: Acessa arquivo mensagem
           run: cat mensagem.txt
