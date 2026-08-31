@@ -19,4 +19,8 @@ jobs:
               run: docker images
 
             - name: Analisando vulnerabilidades na imagem
-              run: docker scout quickview ${{ inputs.image }}
+              uses: docker/scout-action@v1
+              with:
+                command: quickview
+                image: ${{ inputs.image }}
+                exit-code: true
