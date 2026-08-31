@@ -1,0 +1,22 @@
+name: Desafio Um
+
+on: 
+    workflow_dispatch:
+        inputs:
+            image:
+                description: 'Nome da imagem'
+                required: true
+                type: string
+
+jobs:
+    desafio_um:
+        runs-on: ubuntu-latest
+        steps:
+            - name: Baixando a imagem com Docker Pull
+              run: docker pull ${{ inputs.image }}
+            
+            - name: Listando imagens Docker
+              run: docker images
+
+            - name: Analisando vulnerabilidades na imagem
+              run: docker scout quickview ${{ inputs.image }}
