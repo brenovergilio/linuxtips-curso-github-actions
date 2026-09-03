@@ -1,7 +1,7 @@
 name: Criando nosso Trigger Pull Request
 
 on:
-    pull Request:
+    pull_request:
         types: [opened, edited, deleted, reopened]
         branches:
             - 'main'
