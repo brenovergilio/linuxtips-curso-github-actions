@@ -1,0 +1,14 @@
+name: Criando nosso Trigger Pull Request
+
+on:
+    pull Request:
+        types: [opened, edited, deleted, reopened]
+    branches:
+        - 'main/**'
+
+jobs:
+    job-pull-request:
+        runs-on: ubuntu-latest
+        steps:
+            - name: Printa Pull Request
+              run: echo "Uma Pull Request foi aberta/editada/deletada/reaberta na branch main"
