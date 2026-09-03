@@ -1,0 +1,16 @@
+name: Criando nosso Trigger Push
+
+on:
+    push:
+        branches:
+            - 'main'
+            - 'staging'
+        paths:
+            - '**.tf'
+
+jobs:
+    job-push:
+        runs-on: ubuntu-latest
+        steps:
+            - name: Printa Push
+              run: echo "Um Push foi feito na branch main/staging em arquivos terraform"
