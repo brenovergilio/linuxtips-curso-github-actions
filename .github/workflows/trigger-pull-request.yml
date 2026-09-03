@@ -3,8 +3,10 @@ name: Criando nosso Trigger Pull Request
 on:
     pull Request:
         types: [opened, edited, deleted, reopened]
-    branches:
-        - 'main/**'
+        branches:
+            - 'main'
+            - 'main*'
+            - 'main/**'
 
 jobs:
     job-pull-request:
