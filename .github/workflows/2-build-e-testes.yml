@@ -1,0 +1,44 @@
+name: Build e testes
+
+on:
+    workflow_run:
+        workflows: [Validação do ambiente]
+        types:
+            - completed
+
+jobs:
+    builda-e-testa-app:
+        runs-on: ubuntu-latest
+        outputs:
+            deve_publicar: ${{ steps.check_pub.outputs.DEVE_PUBLICAR}}
+        steps:
+            - name: Builda App
+              run: |
+                BUILD=$((RANDOM % 100 + 1))
+                if [ "$BUILD" -gt 20 ]; then
+                    echo "BUILD_SUCCESS=1" >> $GITHUB_ENV
+                else
+                    echo "BUILD_SUCCESS=0" >> $GITHUB_ENV
+                fi
+            - name: Testa App
+              run: |
+                TEST=$((RANDOM % 100 + 1))
+                if [ "$BUILD" -gt 20 ]; then
+                    echo "TEST_SUCCESS=1" >> $GITHUB_ENV
+                else
+                    echo "TEST_SUCCESS=0" >> $GITHUB_ENV
+                fi
+
+            - id: check_pub
+              name: Define se deve publicar
+              run: |
+                if [[ "$BUILD_SUCCESS" == 1 && "$TEST_SUCCESS" == 1 ]]; then
+                    echo "DEVE_PUBLICAR=true" >> $GITHUB_OUTPUT
+                else
+                    echo "DEVE_PUBLICAR=false" >> $GITHUB_OUTPUT
+                fi
+
+    chama_workflow_publicacao:
+        needs: builda-e-testa-app
+        if: ${{ needs.builda-e-testa-app.outputs.deve_publicar == 'true' }}
+        uses: ./.github/workflows/3-publicacao.yml

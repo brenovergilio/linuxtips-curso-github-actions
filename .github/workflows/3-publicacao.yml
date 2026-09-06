@@ -1,0 +1,11 @@
+name: Publica App
+
+on:
+    workflow_call
+
+jobs:
+    publica-app:
+        runs-on: ubuntu-latest
+        steps:
+            - name: publica
+              run: echo "APP Publicado"
