@@ -1,0 +1,14 @@
+name: Workflow Run
+
+on:
+    workflow_run:
+        workflows: [Chama o Workflow Compartilhado]
+        types:
+            - completed
+
+jobs:
+    fim-workflow-compartilhado:
+        runs-on: ubuntu-latest
+        steps:
+            - name: Avisa que o workflow compartilhado encerrou
+              run: echo "O workflow compartilhado terminou de ser executado agora mesmo"
