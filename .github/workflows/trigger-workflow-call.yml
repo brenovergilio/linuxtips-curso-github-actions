@@ -11,5 +11,5 @@ jobs:
     fala-nome-curso:
         runs-on: ubuntu-latest
         steps:
-            name: Informa o nome do curso
-            run: echo "O nome do seu curso é ${{ inputs.nome-do-curso-recebido }}"
+            - name: Informa o nome do curso
+              run: echo "O nome do seu curso é ${{ inputs.nome-do-curso-recebido }}"
