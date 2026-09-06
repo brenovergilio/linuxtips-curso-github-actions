@@ -12,7 +12,7 @@ jobs:
         steps:
             - env:
                 DESCRIPTION: ${{ github.event.description }}
-            run: |
+              run: |
                 echo "The status is error or failed: $DESCRIPTION"
 
     if_success:
@@ -22,5 +22,5 @@ jobs:
         steps:
             - env:
                 DESCRIPTION: ${{ github.event.description }}
-            run: |
+              run: |
                 echo "The status is success: $DESCRIPTION"
