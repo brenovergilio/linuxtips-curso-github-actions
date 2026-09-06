@@ -1,0 +1,11 @@
+name: Validação do ambiente
+
+on: 
+    workflow_dipatch
+
+jobs:
+    valida_ambiente:
+        runs-on: ubuntu-latest
+        steps:
+            - name: Valida ambiente
+              run: echo "Ambiente validado"
