@@ -9,6 +9,6 @@ on:
 
 jobs:
     chama-workflow:
-        uses: .github/workflows/trigger-workflow-call.yml
+        uses: ./.github/workflows/trigger-workflow-call.yml
         with:
-            nome-do-curso-enviado: ${{ inputs.nome-do-curso-enviado }}
+            nome-do-curso-recebido: ${{ inputs.nome-do-curso-enviado }}
