@@ -1,7 +1,7 @@
 name: Validação do ambiente
 
 on: 
-    workflow_dipatch
+    workflow_dispatch
 
 jobs:
     valida_ambiente:
