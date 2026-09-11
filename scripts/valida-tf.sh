@@ -7,6 +7,8 @@ echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/hashi
 sudo apt update -y && sudo apt install terraform -y
 ###
 
+cd ./iac/
+
 echo "::group::Terraform Initialization"
 terraform init -backend=false
 echo "::endgroup::"
