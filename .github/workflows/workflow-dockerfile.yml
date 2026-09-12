@@ -1,0 +1,38 @@
+name: Build & Push Container
+on:
+    workflow_run:
+        workflows: ["Build API"]
+        types: [completed]
+
+permissions:
+    contents: read
+    packages: write
+
+jobs:
+    docker:
+        runs-on: ubuntu-latest
+
+        env:
+            GH_PACKAGES_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+            IMAGE: ghcr.io/${{ github.repository }}/giropops-strigus-girus:${{ github.sha }}
+        steps:
+            - uses: actions/checkout@v4
+
+            - uses: docker/login-action@v3
+              with:
+                registry: ghcr.io
+                username: ${{ github.actor }}
+                password: ${{ secrets.GITHUB_TOKEN }}
+        
+            - name: Build and Push image
+              run: |
+                docker build --build-arg GH_PACKAGES_TOKEN -t "$IMAGE" desafio4/aplicacao 
+                docker push "$IMAGE"
+
+            - name: Run API
+              env:
+                NOME_ALUNO: "BRENO V"
+              run: docker run -d -e NOME_ALUNO=${{ env.NOME_ALUNO }} -p 3000:3000 ${{ env.IMAGE }}
+
+            - name: Test API
+              run: curl -X GET http://localhost:3000/
