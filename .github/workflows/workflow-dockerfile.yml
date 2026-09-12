@@ -34,18 +34,5 @@ jobs:
                 NOME_ALUNO: "BRENOV"
               run: docker run --name=api-container -d -e NOME_ALUNO=${{ env.NOME_ALUNO }} -p 3000:3000 ${{ env.IMAGE }}
 
-            - name: See logs
-              run: |
-                echo "=== Status ANTES da pausa ==="
-                docker ps -a
-                
-                sleep 15
-                
-                echo "=== Status DEPOIS da pausa ==="
-                docker ps -a
-                
-                echo "=== Logs internos do Container ==="
-                docker logs api-container
-
             - name: Test API
               run: curl -X GET http://localhost:3000/
