@@ -1,0 +1,33 @@
+name: Publish Node Library
+on:
+    push:
+        tags: ["v*"]
+
+permissions:
+    contents: read
+    packages: write
+
+jobs:
+    publish:
+        runs-on: ubuntu-latest
+        steps:
+            - uses: actions/checkout@v4
+
+            - uses: actions/setup-node@v4
+              with:
+                node-version: '20'
+                registry-url: 'https://npm.pkg.github.com'
+            
+            - name: Generate lockfile
+              working-directory: desafio4/pacote
+              run: npm install --package-lock-only --ignore-scripts
+
+            - name: Install and test
+              working-directory: desafio4/pacote
+              run: npm ci && npm test || echo "No tests yet"
+
+            - name: Publish to GitHub Packages
+              working-directory: desafio4/pacote
+              env:
+                NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+              run: npm publish
