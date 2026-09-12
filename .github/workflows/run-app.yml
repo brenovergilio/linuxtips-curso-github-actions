@@ -8,7 +8,8 @@ permissions:
 jobs:
     build:
         runs-on: ubuntu-latest
-
+        env:
+            NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         steps:
             - uses: actions/checkout@v4
 
@@ -23,8 +24,6 @@ jobs:
 
             - name: Install deps (including private package)
               working-directory: desafio4/aplicacao
-              env:
-                NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
               run: npm ci
 
             - name: Run a smoke test
