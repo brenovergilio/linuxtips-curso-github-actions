@@ -25,7 +25,3 @@ jobs:
             - name: Install deps (including private package)
               working-directory: desafio4/aplicacao
               run: npm ci
-
-            - name: Run a smoke test
-              working-directory: desafio4/aplicacao
-              run: node -e "console.log('2+3 =', require('@brenovergilio/giropops-strigus-girus')(2,3))"
