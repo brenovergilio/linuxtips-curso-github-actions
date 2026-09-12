@@ -1,0 +1,32 @@
+name: Build API
+on: workflow_dispatch
+
+permissions:
+    contents: read
+    packages: read
+
+jobs:
+    build:
+        runs-on: ubuntu-latest
+
+        steps:
+            - uses: actions/checkout@v4
+
+            - uses: actions/setup-node@v4
+              with:
+                node-version: '20'
+                registry-url: 'https://npm.pkg.github.com'
+            
+            - name: Generate lockfile
+              working-directory: desafio4/aplicacao
+              run: npm install --package-lock-only --ignore-scripts
+
+            - name: Install deps (including private package)
+              working-directory: desafio4/aplicacao
+              env:
+                NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+              run: npm ci
+
+            - name: Run a smoke test
+              working-directory: desafio4/aplicacao
+              run: node -e "console.log('2+3 =', require('@brenovergilio/giropops-strigus-girus')(2,3))"

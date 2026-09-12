@@ -1,0 +1,9 @@
+{
+  "name": "@brenovergilio/giropops-strigus-girus",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "publishConfig": {
+    "registry": "https://npm.pkg.github.com"
+  }
+}
