@@ -31,7 +31,7 @@ jobs:
 
             - name: Run API
               env:
-                NOME_ALUNO: "BRENO V"
+                NOME_ALUNO: "BRENOV"
               run: docker run -d -e NOME_ALUNO=${{ env.NOME_ALUNO }} -p 3000:3000 ${{ env.IMAGE }}
 
             - name: Test API
