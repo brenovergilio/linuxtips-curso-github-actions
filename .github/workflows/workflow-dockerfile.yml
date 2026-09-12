@@ -36,8 +36,15 @@ jobs:
 
             - name: See logs
               run: |
+                echo "=== Status ANTES da pausa ==="
                 docker ps -a
+                
                 sleep 15
+                
+                echo "=== Status DEPOIS da pausa ==="
+                docker ps -a
+                
+                echo "=== Logs internos do Container ==="
                 docker logs api-container
 
             - name: Test API
