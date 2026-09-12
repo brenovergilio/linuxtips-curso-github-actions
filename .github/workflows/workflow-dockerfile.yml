@@ -37,6 +37,7 @@ jobs:
             - name: See logs
               run: |
                 docker ps -a
+                sleep 15
                 docker logs api-container
 
             - name: Test API
